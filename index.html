@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sales Performance Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <header class="header">
+      <div class="header_left">
+        <div class="brand_mark">SD</div>
+        <div class="brand_text">
+          <h1>Sales Performance Dashboard</h1>
+          <p class="brand_sub">Real-time revenue &amp; order intelligence</p>
+        </div>
+      </div>
+
+      <div class="header_right">
+        <div class="field_group">
+          <label for="currentdate" class="field_label filter">Date</label>
+          <input type="date" id="currentdate" class="date_input current_date" onchange="loadDashboard()" />
+        </div>
+
+        <button id="refresh_button" class="btn btn_ghost" type="button" onclick="loadDashboard()">
+          <span class="btn_icon">⟳</span>
+          <span>Refresh</span>
+        </button>
+
+        <button id="download_button" class="btn btn_primary" type="button" onclick="downloadCsv()">
+          <span class="btn_icon">⬇</span>
+          <span>Download CSV</span>
+        </button>
+
+        <button id="theme_button" class="theme" type="button" onclick="theme()">🌙</button>
+
+        <div class="status_block">
+          <div class="status_pill" id="status_pill">
+            <span class="status_dot" id="status_dot"></span>
+            <span id="status_text">LIVE</span>
+          </div>
+          <div class="status_updated">Updated <span id="last_updated">—</span></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="kpi_grid">
+        <div class="kpi_card" id="today_performance">
+          <p>TODAY PERFORMANCE</p>
+          <span id="today_orders" class="today_orders"></span>
+          <span>Order</span><br>
+          <span id="today_revenue"></span>
+          <span>Revenue</span>
+        </div>
+        <div class="kpi_card">
+          <p>CURRENT MONTH</p>
+          <span id="monthly_orders" class="monthly_orders"></span>
+          <span>Order</span><br>
+          <span id="monthly_revenue"></span>
+          <span>Revenue</span>
+        </div>
+        <div class="kpi_card">
+          <p>PREVIOUS MONTH (SAME DAY)</p>
+          <span id="previous_month_same_day_orders" class="previous_month_same_day_orders"></span>
+          <span>Order</span><br>
+          <span id="previous_month_same_day_revenue"></span>
+          <span>Revenue</span>
+        </div>
+        <div class="kpi_card">
+          <p>PREVIOUS MONTH</p>
+          <span id="previous_month_orders" class="previous_month_orders"></span>
+          <span>Order</span><br>
+          <span id="previous_month_revenue"></span>
+          <span>Revenue</span>
+        </div>
+      </section>
+
+      <section class="leader_panel">
+        <span>DAILY LEADERBOARD</span>
+        <div class="table_wrap">
+          <table class="leader_table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Emp Name</th>
+                <th>Today Sales</th>
+                <th>Monthly Sales</th>
+                <th>Monthly Revenue</th>
+                <th id="leader_last_column_label">Day Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="emp_data"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="chart_grid">
+        <div class="summary_graph">
+          <span>DAILY SUMMARY GRAPH</span>
+          <canvas id="daily_summary_graph"></canvas>
+        </div>
+        <div class="summary_graph">
+          <span>MONTHLY SUMMARY GRAPH</span>
+          <canvas id="monthly_summary_graph"></canvas>
+        </div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
